@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block section %}
+    <section class="ftco-section contact-section ftco-no-pb" id="login" >
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 heading-section text-center ftco-animate">
+          <h2 class="mb-4">Авторизация</h2>
+        </div>
+      </div>
+
+      <div class="row no-gutters block-9" style="width: 60%;margin:auto;padding-bottom:50px;"> 
+        {% comment %} width: 90% mobile {% endcomment %}
+        
+          <form method="post" id="myForm" action="#" class="bg-light p-4 p-md-5 contact-form">
+
+            <div class="form-group">
+              <input type="text" id="nameInput" class="form-control" placeholder="Имя пользователя">
+            </div> 
+
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Пароль">
+            </div> 
+
+            {% comment %} <form method="post" id="myForm">
+                {% csrf_token %}
+                <input type="text" name="name" id="nameInput" placeholder="Введите имя">
+                <button type="submit">Отправить</button>
+            </form> {% endcomment %}
+            
+            <p>
+              <div class="form-group">
+                  <input type="submit" id="submitButton" value="Войти" class="btn btn-primary py-3 px-5" style="margin:auto;">
+              </div>
+            </p> 
+
+            <p>
+                <div class="form-group">
+                    Нет аккаунта? | <a href="{% url "users:register" %}" style="text-decoration: none;">Зарегистрироваться</a>
+                </div>
+            </p>
+            
+          
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const form = document.getElementById('myForm');
+                    const submitButton = document.getElementById('submitButton');
+                    const inputs = form.querySelectorAll('input'); // Выбираем все поля ввода
+            
+                    // Функция для проверки заполненности всех полей
+                    function checkForm() {
+                        let allFilled = true;
+                        inputs.forEach(input => {
+                            if (!input.value.trim()) { // Проверяем, заполнено ли поле
+                                allFilled = false;
+                            }
+                        });
+                        submitButton.disabled = !allFilled; // Делаем кнопку активной/неактивной
+                    }
+            
+                    // Добавляем обработчик события 'input' на каждое поле
+                    inputs.forEach(input => {
+                        input.addEventListener('input', checkForm);
+                    });
+            
+                    // Проверяем форму при загрузке страницы
+                    checkForm();
+                });
+            </script>
+
+          </form>
+        
+        
+        
+      </div>
+
+    </div>
+  </section>
+{% endblock section %}
+
+
+
