@@ -19,13 +19,16 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 from app import settings
+from users.models import User
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls', namespace='main')),
     path('', include('users.urls', namespace='users')),
-
 ]
+
 
 admin.site.site_header = "Панель администратора"
 admin.site.site_title = "Администрирование"

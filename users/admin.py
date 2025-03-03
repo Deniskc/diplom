@@ -19,7 +19,6 @@ class UserAdmin(admin.ModelAdmin):
         'birth_date',
         'phone_number',
         'email',
-        'is_staff',
-        
+        'is_staff',  
     ]
     

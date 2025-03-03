@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 3px solid #999999;
+            padding: 8px;
+            text-align: justify;
+        }
+    </style>
+{% endblock css %}
+
+{% block section %}
+    <section class="ftco-section ftco-animate">
+        <div class="container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>ФИО студента</th>
+                        <th>Направление</th>
+                        <th>Дата рождения</th>
+                        <th>№ заявления</th>
+                        <th>Бюджет/Внебюджет</th>
+                        <th>Примечания</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Иванов Иван Иванович</td>
+                        <td>Информационные технологии</td>
+                        <td>15.03.2000</td>
+                        <td>123456</td>
+                        <td>Бюджет</td>
+                        <td>Отличник</td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Петрова Анна Сергеевна</td>
+                        <td>Экономика</td>
+                        <td>22.07.2001</td>
+                        <td>123457</td>
+                        <td>Внебюджет</td>
+                        <td>Переведена с другого факультета</td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>Сидоров Алексей Владимирович</td>
+                        <td>Юриспруденция</td>
+                        <td>10.11.1999</td>
+                        <td>123458</td>
+                        <td>Бюджет</td>
+                        <td>Активный участник студенческих мероприятий</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div class="col-md-8">
+
+                <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+					<li class="ftco-animate"><a href="#"><span class="icon-table"></span></a></li>
+				</ul>
+
+            </div>
+
+        </div>
+    </section>
+{% endblock section %}
+
