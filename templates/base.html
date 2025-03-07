@@ -52,16 +52,18 @@
 			<div class="collapse navbar-collapse" style="padding-left: 20px;" id="ftco-nav">
 				
 				<ul class="navbar-nav nav ml-auto">
-					<li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#projects-section{% endif %}" class="nav-link"><span>Программы</span></a></li>
+					<li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#projects-section{% endif %}" class="nav-link"><span>программы</span></a></li>
 					{% comment %} <li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#about-section{% endif %}" class="nav-link"><span>Преподаватели</span></a></li> {% endcomment %}
-					<li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#contact-section{% endif %}" class="nav-link"><span>Оставить заявку</span></a></li>
+					<li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#contact-section{% endif %}" class="nav-link"><span>оставить заявку</span></a></li>
 					
+					{% comment %} <li class="nav-item"><a href="{% url "main:students" %}"> students</a></li> {% endcomment %}
+
 					{% if not user.is_authenticated %}
-						<li class="nav-item"><a href="{% if request.path == "/login/" %}#login{% else %}{% url "users:login" %}{% endif %}" class="nav-link"><span>Войти</span></a></li>
+						<li class="nav-item"><a href="{% if request.path == "/login/" %}#login{% else %}{% url "users:login" %}{% endif %}" class="nav-link"><span>войти</span></a></li>
 					{% endif %}
 					
 					{% if user.is_authenticated %}
-						<li class="nav-item"><a href="{% url "users:logout" %}" class="nav-link"><span>Выйти</span></a></li>
+						<li class="nav-item"><a href="{% url "users:logout" %}" class="nav-link"><span>выйти</span></a></li>
 					{% endif %}
 				
 				</ul>

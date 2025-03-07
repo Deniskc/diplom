@@ -1,18 +1,29 @@
 from django.contrib import admin
 
-# Register your models here.
+from main.models import Curses, Disciplines, Students, Lecturers, Documents
 
-from main.models import Curses, Disciplines, Students, Lecturers, Document
 
+class LecturersTabularAdmin(admin.TabularInline):
+    model = Lecturers
+    extra = 0
+    classes = ['collapse']
 
 class DocumentsTabularAdmin(admin.TabularInline):
-    model = Document
-    extra = 1
+    model = Documents
+    extra = 0
+    classes = ['collapse']
+
+
+class DisciplinesTabularAdmin(admin.TabularInline):
+    model = Disciplines
+    extra = 0
+    classes = ['collapse']
+
 
 @admin.register(Curses)
 class CursesAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    readonly_fields = ["image_tag"]
+    readonly_fields = ['image_tag']
     fields = [
         'name',
         'edu_form',
@@ -22,17 +33,20 @@ class CursesAdmin(admin.ModelAdmin):
         'structure',
         'image',
         'image_tag',
+        'hours',
     ]
-    list_display = ['name']
-    inlines = (DocumentsTabularAdmin,)
+    
+    list_display = ['name', 'image_tag',]
+    inlines = (DocumentsTabularAdmin, DisciplinesTabularAdmin, LecturersTabularAdmin)
 
 @admin.register(Disciplines)
 class DisciplinesAdmin(admin.ModelAdmin):
-    pass
+    inlines = (LecturersTabularAdmin,)
 
 @admin.register(Students)
 class StudentsAdmin(admin.ModelAdmin):
     pass
+
 
 @admin.register(Lecturers)
 class LecturersAdmin(admin.ModelAdmin):

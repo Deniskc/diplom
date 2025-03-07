@@ -32,35 +32,18 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Иванов Иван Иванович</td>
-                        <td>Информационные технологии</td>
-                        <td>15.03.2000</td>
-                        <td>123456</td>
-                        <td>Бюджет</td>
-                        <td>Отличник</td>
-                    </tr>
 
-                    <tr>
-                        <td>2</td>
-                        <td>Петрова Анна Сергеевна</td>
-                        <td>Экономика</td>
-                        <td>22.07.2001</td>
-                        <td>123457</td>
-                        <td>Внебюджет</td>
-                        <td>Переведена с другого факультета</td>
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td>Сидоров Алексей Владимирович</td>
-                        <td>Юриспруденция</td>
-                        <td>10.11.1999</td>
-                        <td>123458</td>
-                        <td>Бюджет</td>
-                        <td>Активный участник студенческих мероприятий</td>
-                    </tr>
+                    {% for s in students %}
+                        <tr>
+                            <td>{{ s.id }}</td>
+                            <td>{{ s.last_name }} {{ s.first_name }} {{ s.surname }}</td>
+                            <td>{% if s.curse %}{{ s.curse }}{% else %}Не записан{% endif %} </td>
+                            <td>{{ s.birth_date }}</td>
+                            <td>{{ s.id }}</td>
+                            <td>{{ s.curse.edu_form }}</td>
+                            <td>{% if s.description %}{{ s.description }}{% else %}Нет примечаний{% endif %}</td>
+                        </tr>
+                    {% endfor %}
 
                 </tbody>
             </table>

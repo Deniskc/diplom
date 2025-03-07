@@ -16,7 +16,7 @@
       <div class="row no-gutters block-9" style="width: 100%;margin:auto;padding-bottom:50px;"> 
 
         
-          <form action="{% url "users:login" %}" method="post" id="myForm" action="#" class="bg-light p-4 p-md-5 contact-form">
+          <form action="{% url "users:login" %}" method="post" id="myForm" class="bg-light p-4 p-md-5 contact-form">
             {% csrf_token %}
 
             {% if request.GET.next %}
@@ -30,7 +30,7 @@
 
             <div class="form-group">
               <label for="id_password" class="form-label">Пароль</label>
-              <input type="password" name="password" id="id_password" class="form-control" placeholder="Введите пароль">
+              <input type="password" name="password" id="id_password" class="form-control" placeholder="Введите пароль" value="{% if form.password.value %} {{ form.password.value }} {% endif %}">
             </div> 
             
             <p>

@@ -11,21 +11,21 @@
             {% comment %} Название программы {% endcomment %}
             <div class="row justify-content-center mb-5 pb-3" style="margin-bottom:24px;">
                 <div class="col-md-12 heading-section text-center ftco-animate">
-                    <h2 class="mb-4">1C Бухгалетрия и 1С Управление персоналом</h2>
+                    <h2 class="mb-4">{{ curse.name }}</h2>
                 </div>
             </div>
 
             {% comment %} Фото программы {% endcomment %}
             <div class="col-md-12 heading-section text-center ftco-animate">
                 <p>
-                    <img src="{% static 'images/form-photo.jpg' %}" style="height:60%;width:60%; border-radius:20px">
+                    <img src="{% if curse.image %}{{ curse.image.url }}{% else %}{% static "images/form-photo.jpg" %}{% endif %}" style="height:60%;width:80%; border-radius:20px">
                 </p>
             </div>
 
             {% comment %} Кнопка записаться {% endcomment %}
             <div class="col-md-12 heading-section text-center ftco-animate" style="margin-bottom:100px">
                 <p>
-                    <a href="" class="btn btn-primary py-3 px-4" style="width:60%; line-height:100%;">Записаться сейчас</a>
+                    <a href="" class="btn btn-primary py-3 px-4" style="width:80%; line-height:100%;font-size:16px;">Записаться сейчас</a>
                 </p>
             </div>
 
@@ -35,10 +35,7 @@
                 <div class="col-md-8">
                     <h1>Описание</h1>
                     <li class="nav-item">
-                    Цель программы — получение дополнительных знаний, умений и навыков 
-                    в автоматизации задач управления персоналом, ведения кадрового учета, 
-                    осуществление учета материально-производственных запасов, товаров, торговых операций, 
-                    активов и заработной платы, и других задач, стоящих перед бухгалтерской службой предприятия.
+                        {{ curse.description }}
                     </li>
                 </div>
                 
@@ -46,24 +43,27 @@
                 <div class="col-md-8" style="margin-bottom:20px;margin-top:20px;">
                     <h1>Форма обучения</h1>
                     <ul class="">
-                        <li class="nav-item">Очно-заочная</li>
+                        <li class="nav-item">{{ curse.edu_form }}</li>
                     </ul>
                 </div>
             
                 <div class="col-md-8" style="margin-bottom:20px;margin-top:20px;">
                     <h1>Документ по окончании</h1>
-                    <a href="">Удостоверение о повышении квалификации</a>
+                    <a href="{{ curse.sertificate }}">Удостоверение о повышении квалификации</a>
                 </div>
 
                 <div class="col-md-8" style="margin-bottom:20px;margin-top:20px;">
                     <h1>Структура программы</h1>
-                    <ol>
+                    <p>
+                        {{ curse.structure }}
+                    </p>
+                    {% comment %} <ol>
                         <li class="nav-item">Основные функции, режимы и правила работы с программой </li>
                         <li class="nav-item">Базовые операции по учету кадрами в организации.</li>
                         <li class="nav-item">Расчет зарплаты в организации, отчеты и унифицированные формы.</li>
                         <li class="nav-item">Основные функции, режимы и правила работы с программой.</li>
                         <li class="nav-item">Решение комплекса задач бухгалтерской службы.</li>
-                    </ol>
+                    </ol> {% endcomment %}
                 </div>
             
 
@@ -72,17 +72,28 @@
                     <h1>Документы</h1>
                     <p>
                         <div class="row">
-                            <div class="col-md-auto">
-                                <a href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                                        <path d="M28 22 L28 30 4 30 4 22 M16 4 L16 24 M8 16 L16 24 24 16" />
-                                    </svg>
-                                </a>
-                            </div>
+                            {% if not document.url %}
+                                <div class="col-md-auto">
+                                    <p>
+                                        Документы еще не добавлены
+                                    </p>
+                                </div>
+                            {% endif %}
 
-                            <div class="col-md-auto">
-                                <a href="">Аннотация</a>
-                            </div>
+                            {% for document in documents %}
+                                <div class="col-md-auto">
+                                    <a href="{{ document.url }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                            <path d="M28 22 L28 30 4 30 4 22 M16 4 L16 24 M8 16 L16 24 24 16" />
+                                        </svg>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-auto">
+                                    <a href="{{ document.url }}">{{ document.name }}</a>
+                                </div>
+                            {% endfor %}
+
                         </div>
                     </p>
                 </div>
@@ -95,136 +106,46 @@
 
     </section>
 
-    {% comment %} Карточки преподователей {% endcomment %}
-    <section class="ftco-about img ftco-section ftco-no-pb" id="projects-section" style="padding-top:10px"> 	
-        <div class="container">
-            <h1 class="mb-4">Преподаватели</h1>
-		</div>
-
-        {% comment %} Карточка преподавателя {% endcomment %}
-        <div class="container" style="margin-top:30px">
-            {% comment %} <h1 class="mb-4">Преподаватели</h1> {% endcomment %}
-            <div class="row d-flex">
-                <div class="col-md-6 col-lg-5 d-flex">
-                    <div class="img-about img d-flex align-items-stretch">
-                        <div class="overlay"></div>
-                        <div class="img d-flex align-self-stretch align-items-center" style="background-image:url({% static 'images/bg_1.png' %});border:3px solid white">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-7 pl-lg-5 pb-5">
-                    <div class="row justify-content-start pb-3">
-                        <div class="col-md-12 heading-section ftco-animate">
-                            
-                            <h3 class="mb-4">Абубакр Алексей Петрович</h3>
-                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                            
-                            <ul class="about-info mt-4 px-md-0 px-2">
-                                <li class="d-flex"><span>Name:</span> <span>Clark Thompson</span></li>
-                                <li class="d-flex"><span>Date of birth:</span> <span>January 01, 1987</span></li>
-                                <li class="d-flex"><span>Address:</span> <span>San Francisco CA 97987 USA</span></li>
-                                <li class="d-flex"><span>Zip code:</span> <span>1000</span></li>
-                                <li class="d-flex"><span>Email:</span> <span>clarkthomp@gmail.com</span></li>
-                                <li class="d-flex"><span>Phone: </span> <span>+1-2234-5678-9-0</span></li>
-                            </ul>
-
-                        </div>
-                    </div>
-
-                    <div class="counter-wrap ftco-animate d-flex mt-md-3">
-                        <div class="text">
-                            <p class="mb-4">
-                                <span class="number" data-number="120">0</span>
-                                <span>Project complete</span>
-                            </p>
-                            {% comment %} <p><a href="#" class="btn btn-primary py-3 px-3">Download CV</a></p> {% endcomment %}
-                        </div>
-                    </div>
-
-                </div>
+    {% if lecturer.first_name %}
+        {% comment %} Карточки преподователей {% endcomment %}
+        <section class="ftco-about img ftco-section ftco-no-pb" id="projects-section" style="padding-top:10px"> 	
+            <div class="container">
+                <h1 class="mb-4">Преподаватели</h1>
             </div>
 
-		</div>
-
-        {% comment %} Карточка преподавателя {% endcomment %}
-        <div class="container" style="margin-top:30px">
-            
-            <div class="row d-flex">
-                <div class="col-md-6 col-lg-5 d-flex">
-                    <div class="img-about img d-flex align-items-stretch">
-                        <div class="overlay"></div>
-                        <div class="img d-flex align-self-stretch align-items-center" style="background-image:url({% static 'images/bg_1.png' %});border:3px solid white">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-7 pl-lg-5 pb-5">
-                    <div class="row justify-content-start pb-3">
-                        <div class="col-md-12 heading-section ftco-animate">
-                            
-                            <h3 class="mb-4">Абубакр Алексей Петрович</h3>
-                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                            
-                            <ul class="about-info mt-4 px-md-0 px-2">
-                                <li class="d-flex"><span>Name:</span> <span>Clark Thompson</span></li>
-                                <li class="d-flex"><span>Date of birth:</span> <span>January 01, 1987</span></li>
-                                <li class="d-flex"><span>Address:</span> <span>San Francisco CA 97987 USA</span></li>
-                                <li class="d-flex"><span>Zip code:</span> <span>1000</span></li>
-                                <li class="d-flex"><span>Email:</span> <span>clarkthomp@gmail.com</span></li>
-                                <li class="d-flex"><span>Phone: </span> <span>+1-2234-5678-9-0</span></li>
-                            </ul>
+            {% comment %} Карточка преподавателя {% endcomment %}
+            <div class="container" style="margin-top:30px">
+                {% comment %} <h1 class="mb-4">Преподаватели</h1> {% endcomment %}
+                <div class="row d-flex">
+                    <div class="col-md-6 col-lg-5 d-flex">
+                        <div class="img-about img d-flex align-items-stretch">
+                            <div class="overlay"></div>
+                                <div class="img d-flex align-self-stretch align-items-center" style="background-image:url({% if lecturer.image %}{{ lecturer.image }}{% else %}{% static 'images/person-default.png' %}{% endif %});border:3px solid white;height:445px">
+                            </div>
                         </div>
                     </div>
 
-                <div class="counter-wrap ftco-animate d-flex mt-md-3">
-                    <div class="text">
-                        <p class="mb-4">
-                            <span class="number" data-number="120">0</span>
-                            <span>Project complete</span>
-                        </p>
-                        {% comment %} <p><a href="#" class="btn btn-primary py-3 px-3">Download CV</a></p> {% endcomment %}
+                    <div class="col-md-6 col-lg-7 pl-lg-5 pb-5">
+                        <div class="row justify-content-start pb-3">
+                            <div class="col-md-12 heading-section ftco-animate">
+                                
+                                <h3 class="mb-4">{{ lecturer.first_name }} {{ lecturer.last_name }} {{ lecturer.surname }}</h3>
+                                <p>{{ lucturer.description }}</p>
+                                
+                                <ul class="about-info mt-4 px-md-0 px-2">
+                                    <li class="d-flex"><span>{{ lecturer.education }}</span></li>
+                                </ul>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                </div>
             </div>
 
-		</div>
-	
-	</section>
-
-
-    {% comment %} тестовая секция {% endcomment %}
-    <section class="ftco-section contact-section ftco-no-pb" id="projects-section" style="margin-top:50px">
-        <div class="container">
-            <ul id="itemList">
-                <li>Название 1</li>
-                <li>Название 2</li>
-                <li>Название 3</li>
-                <li>Название 4</li>
-                <li>Название 5</li>
-                <li class="hidden">Название 6</li>
-                <li class="hidden">Название 7</li>
-                <li class="hidden">Название 8</li>
-                <li class="hidden">Название 9</li>
-                <li class="hidden">Название 10</li>
-            </ul>
-            <button id="showMoreBtn">Показать еще</button>
-
-            <script>
-                document.getElementById('showMoreBtn').addEventListener('click', function() {
-                    const hiddenItems = document.querySelectorAll('#itemList .hidden');
-                    
-                    hiddenItems.forEach(item => {
-                        item.classList.remove('hidden');
-                    });
-                
-                    // Скрываем кнопку после раскрытия списка
-                    this.style.display = 'none';
-                });
-            </script>
-        </div>
-    </section>
+        
+        </section>
+    {% endif %}
 
 {% endblock section %}

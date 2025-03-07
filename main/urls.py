@@ -6,7 +6,7 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('curse_cart/', views.curse_cart, name='curse_cart'),
+    path('curse/<slug:curse_slug>/', views.curse_cart, name='curse_cart'),
     path('students/', views.students, name='students'),
-    # path('<slug:curse_slug>/', views.curse_cart, name='curse_cart'),
+    # path('form_submitted/', views.education_form, name='education_form'),
 ]
