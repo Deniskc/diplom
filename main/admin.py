@@ -1,7 +1,11 @@
 from django.contrib import admin
 
-from main.models import Curses, Disciplines, Students, Lecturers, Documents
+from main.models import Curses, Disciplines, News, NewsTag, Students, Lecturers, Documents
 
+
+class NewsTagTabularAdmin(admin.TabularInline):
+    model = NewsTag
+    extra = 0
 
 class LecturersTabularAdmin(admin.TabularInline):
     model = Lecturers
@@ -47,7 +51,11 @@ class DisciplinesAdmin(admin.ModelAdmin):
 class StudentsAdmin(admin.ModelAdmin):
     pass
 
-
 @admin.register(Lecturers)
 class LecturersAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+    inlines = (NewsTagTabularAdmin,)

@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.safestring import mark_safe
-# Create your models here.
+
+from users.models import User
+
 
 class Curses(models.Model): 
     name = models.CharField(max_length=256, unique=True, verbose_name='Название')
@@ -89,4 +91,25 @@ class Documents(models.Model):
         verbose_name = 'Документ'
         verbose_name_plural = 'Добавить документы'
 
+class News(models.Model):
+    title = models.CharField(max_length=150, verbose_name='Заголовок', default='Why Lead Generation is Key for Business Growth')
+    subtitle = models.TextField(verbose_name='Подзаголовок', default='A small river named Duden flows by their place and supplies it with the necessary regelialia.')
+    date = models.DateField(auto_now_add=True, verbose_name='Дата публикации')
+    text = models.TextField(verbose_name='Текст новости', blank=True, null=True)
+    image = models.ImageField(upload_to='news_image', blank=True, null=True, verbose_name='Изображение', default='static/images/person-default.png')
+    slug = models.SlugField(max_length=256, unique=True, blank=True, null=True, verbose_name='URL')
 
+
+    class Meta:
+        db_table = 'news'
+        verbose_name = 'Новость'
+        verbose_name_plural = 'Новости'
+
+class NewsTag(models.Model):
+    tag = models.CharField(max_length=50, verbose_name='Тег')
+    new = models.ForeignKey(to=News, on_delete=models.CASCADE, verbose_name='Новость', blank=True, null=True,)
+
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
+    
