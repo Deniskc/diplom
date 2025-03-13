@@ -40,53 +40,50 @@
 
 	<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 		
+		{% comment %} Верхнее меню {% endcomment %}
 		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar" style="border-bottom: 4px solid white;">
 			<div class="container">
-			<div class="nav-link"> 
-				<a class="navbar-brand" href="{% url "main:index" %}">FA.RU</a>
-			</div>
-			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-				<div class="navbar-brand" style="padding-bottom:15px"><span class="oi oi-menu"></span></div>
-			</button>
 
-			<div class="collapse navbar-collapse" style="padding-left: 20px;" id="ftco-nav">
-				
-				<ul class="navbar-nav nav ml-auto">
-					<li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#projects-section{% endif %}" class="nav-link"><span>программы</span></a></li>
-					{% comment %} <li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#about-section{% endif %}" class="nav-link"><span>Преподаватели</span></a></li> {% endcomment %}
-					<li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#contact-section{% endif %}" class="nav-link"><span>оставить заявку</span></a></li>
+				<div class="nav-link"> 
+					<a class="navbar-brand" href="{% url "main:index" %}">ПФЭК ДПО</a>
+				</div>
+
+				<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+					<div class="navbar-brand" style="padding-bottom:15px"><span class="oi oi-menu"></span></div>
+				</button>
+
+				<div class="collapse navbar-collapse" style="padding-left: 20px;" id="ftco-nav">
 					
-					{% comment %} <li class="nav-item"><a href="{% url "main:students" %}"> students</a></li> {% endcomment %}
+					<ul class="navbar-nav nav ml-auto">
+						<li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#projects-section{% endif %}" class="nav-link"><span>программы</span></a></li>
+						<li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#contact-section{% endif %}" class="nav-link"><span>оставить заявку</span></a></li>
+						<li class="nav-item"><a href="{% if request.path == "/students/" %}#students{% else %}{% url "main:students" %}{% endif %}" class="nav-link"><span>поступающим</span></a></li>
 
-					{% if not user.is_authenticated %}
-						<li class="nav-item"><a href="{% if request.path == "/login/" %}#login{% else %}{% url "users:login" %}{% endif %}" class="nav-link"><span>войти</span></a></li>
-					{% endif %}
+						{% if not user.is_authenticated %}
+							<li class="nav-item"><a href="{% if request.path == "/login/" %}#login{% else %}{% url "users:login" %}{% endif %}" class="nav-link"><span>войти</span></a></li>
+						{% endif %}
+						
+						{% if user.is_authenticated %}
+							<li class="nav-item"><a href="{% url "users:logout" %}" class="nav-link"><span>выйти</span></a></li>
+						{% endif %}
 					
-					{% if user.is_authenticated %}
-						<li class="nav-item"><a href="{% url "users:logout" %}" class="nav-link"><span>выйти</span></a></li>
-					{% endif %}
-				
-				</ul>
-				
+					</ul>
+				</div>
 
-			</div>
 			</div>
 		</nav>
 
-		{% comment %} EMPTY SECTION {% endcomment %}
+		{% comment %} Пустая секция {% endcomment %}
 		<section class="ftco-section ftco-hireme img margin-top" id="projects-section" style="background-color:black; margin-top:-160px;">
 		</section>
-
 
 		{% comment %} <section class="ftco-section ftco-hireme img margin-top" style="background-color: black;">
 		</section> {% endcomment %}
 
-		
 		{% block section %}
-		
 		{% endblock section %}
 			
-
+		{% comment %} Подвал {% endcomment %}
 		<footer class="ftco-footer ftco-section" style="margin-top:50px;border-top:5px solid white">
 			<div class="container">
 				<div class="row mb-5">
@@ -98,111 +95,50 @@
 						<p> <a href="https://dpo.fa.ru/privacy">Политика конфиденциальности</a> </p>
 						
 						<p> <a href="https://dpo.fa.ru/soglasienaobr">Согласие на обработку персональных данных</a> </p>
-						<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span class="icon-vk"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-telegram"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-youtube"></span></a></li>
-						</ul>
+						{% comment %} <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+							<li class="ftco-animate"><a href="https://vk.com/officialfaperm"><span class="icon-vk"></span></a></li>
+						</ul> {% endcomment %}
 						</div>
 					</div>
 
 					<div class="col-md">
 						<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Документы</h2>
-						
-						<p> <a href="https://dpo.fa.ru/privacy">Политика конфиденциальности</a> </p>
-						
-						<p> <a href="https://dpo.fa.ru/soglasienaobr">Согласие на обработку персональных данных</a> </p>
-						<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span class="icon-vk"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-telegram"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-youtube"></span></a></li>
-						</ul>
+							<h2 class="ftco-heading-2">Адрес</h2>
+							<p> <a>614077, Пермский край, г. Пермь, ​б-р Гагарина, д. 50</a> </p>
+						</div>
+					</div>
+					
+					<div class="col-md">
+						<div class="ftco-footer-widget mb-4">
+							<h2 class="ftco-heading-2">Контакты</h2>
+							<p> <a>Телефон</a> </p>
+							<p> <b><a>+7 (342) 261-82-32</a></b> </p>
+							<p> <b><a>Катаева Нина Сергеевна</a></b> </p>
+							<p> <a>Электронная почта</a> </p>
+							<p> <b><a>nskataeva@fa.ru</a></b> </p>
+							
 						</div>
 					</div>
 
 					<div class="col-md">
 						<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Документы</h2>
-						
-						<p> <a href="https://dpo.fa.ru/privacy">Политика конфиденциальности</a> </p>
-						
-						<p> <a href="https://dpo.fa.ru/soglasienaobr">Согласие на обработку персональных данных</a> </p>
-						<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span class="icon-vk"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-telegram"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-youtube"></span></a></li>
-						</ul>
+							<h2 class="ftco-heading-2">Время работы</h2>
+							<p> <a>Понедельник-четверг - <b>с 09:00 до 17:30</b>, </p>
+							<p> пятница - <b>с 09:00 до 16:15</b>,</a> </p>
+							<p> перерыв - с 13:00 до 13:45 </p>
 						</div>
 					</div>
-
-					<div class="col-md">
-						<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Документы</h2>
-						
-						<p> <a href="https://dpo.fa.ru/privacy">Политика конфиденциальности</a> </p>
-						
-						<p> <a href="https://dpo.fa.ru/soglasienaobr">Согласие на обработку персональных данных</a> </p>
-						<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span class="icon-vk"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-telegram"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-youtube"></span></a></li>
-						</ul>
-						</div>
-					</div>
-
-					{% comment %} <div class="col-md">
-						<div class="ftco-footer-widget mb-4 ml-md-4">
-						<h2 class="ftco-heading-2">Links</h2>
-						<ul class="list-unstyled">
-							<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Home</a></li>
-							<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>About</a></li>
-							<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Services</a></li>
-							<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Projects</a></li>
-							<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Contact</a></li>
-						</ul>
-						</div>
-					</div>
-
-					<div class="col-md">
-						<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Services</h2>
-						<ul class="list-unstyled">
-							<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Design</a></li>
-							<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Web Development</a></li>
-							<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Business Strategy</a></li>
-							<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Data Analysis</a></li>
-							<li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Graphic Design</a></li>
-						</ul>
-						</div>
-					</div>
-
-					<div class="col-md">
-						<div class="ftco-footer-widget mb-4">
-							<h2 class="ftco-heading-2">Have a Questions?</h2>
-							<div class="block-23 mb-3">
-							<ul>
-								<li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-								<li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-								<li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
-							</ul>
-							</div>
-						</div>
-					</div> {% endcomment %}
 
 				</div>
-				
 			</div>
 		</footer>
 		
-
-		<!-- loader -->
+		<!-- Значок загрузки -->
 		<div id="ftco-loader" class="show fullscreen">
 			<svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
 				<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/>
 			</svg>
 		</div>
-
 		
 		{% comment %} JavaScripts {% endcomment %}
 		<div>

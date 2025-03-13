@@ -38,6 +38,7 @@ class CursesAdmin(admin.ModelAdmin):
         'image',
         'image_tag',
         'hours',
+        'paid_or_free',
     ]
     
     list_display = ['name', 'image_tag',]
@@ -49,7 +50,27 @@ class DisciplinesAdmin(admin.ModelAdmin):
 
 @admin.register(Students)
 class StudentsAdmin(admin.ModelAdmin):
-    pass
+        fields = [
+            'last_name',
+            'first_name',
+            'surname',
+            'birth_date',
+            'curse',
+            'email',
+            'phone',
+            'description',
+            'curse_is_paid',
+        ]
+
+        list_display = [
+            'last_name',
+            'first_name',
+            'surname',
+            'curse_is_paid',
+        ]
+
+        readonly_fields = ['curse_id']
+        list_editable = ['curse_is_paid',]
 
 @admin.register(Lecturers)
 class LecturersAdmin(admin.ModelAdmin):
@@ -58,4 +79,9 @@ class LecturersAdmin(admin.ModelAdmin):
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
+    list_display = [
+        'title',
+        'date',
+        'image_tag',
+    ]
     inlines = (NewsTagTabularAdmin,)

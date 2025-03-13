@@ -14,11 +14,13 @@ class RequestEducationForm(forms.ModelForm):
             'birth_date',
             'email',
             'phone',
+            'curse',
         ]
 
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    surname = forms.CharField()
-    birth_date = forms.DateField()
-    email = forms.EmailField()
-    phone = forms.IntegerField()
+    # first_name = forms.CharField()
+    # last_name = forms.CharField()
+    # surname = forms.CharField()
+    # birth_date = forms.DateField()
+    # email = forms.EmailField()
+    # phone = forms.IntegerField()
+    # curse = forms.IntegerField()

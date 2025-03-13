@@ -1,12 +1,15 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
 from main.forms import RequestEducationForm
 from main.models import Curses, Documents, News, NewsTag, Students
-
+import csv
+import random as r
 
 def index(request):
+
+    # selected_curse = request.POST.get('id_curse')
 
     news = News.objects.all().order_by('-date')
 
@@ -27,7 +30,7 @@ def index(request):
         if form.is_valid():
             form.save()
 
-            return HttpResponseRedirect(reverse('main:index'))      
+            return HttpResponseRedirect(reverse('main:students'))      
     else:
         form = RequestEducationForm()
 
@@ -40,7 +43,6 @@ def index(request):
         'last_curse': last_curse,
         'len_curses_is_even': len_curses_is_even,
         'news':news,
-
     }
 
     return render(request, 'main/index.html', context)
@@ -62,6 +64,7 @@ def curse_cart(request, curse_slug):
 def students(request):
 
     students = Students.objects.all()
+    rand_list = [r.randint(1111,9999) for i in range(0,len(Students.objects.all()))]
     
     context = {
         'title': 'ДПО - Поступающим',
@@ -92,4 +95,51 @@ def news(request, news_slug):
     }
 
     return render(request, 'main/single.html', context)
+
+def export_to_csv(request):
+    # Создаем HTTP-ответ с типом содержимого 'text/csv'
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="students.csv"'
+
+    # Создаем объект writer для записи в CSV
+    writer = csv.writer(response)
+
+    # Записываем заголовки столбцов
+    writer.writerow([
+        'Фамилия',
+        'Имя',
+        'Отчество',
+        'Дата рождения',
+        'Программа обучения',
+        '№ заявления',
+        'Бюджет/Внебюджет',
+        'Форма обучения',
+        'Эл. почта',
+        'Телефон',
+        'Примечания',
+        'Оплачен курс?'
+    ]) 
+
+    # Получаем данные из модели
+    queryset = Students.objects.all()
+
+    # Записываем данные в CSV
+    for obj in queryset:
+        numb_statement = 'К-0000' + str(obj.id) 
+        writer.writerow([
+            obj.last_name,
+            obj.first_name,
+            obj.surname,
+            obj.birth_date,
+            obj.curse,
+            numb_statement,
+            obj.curse.paid_or_free,
+            obj.curse.edu_form,
+            obj.email,
+            obj.phone,
+            obj.description,
+            obj.curse_is_paid,
+        ]) 
+
+    return response
 

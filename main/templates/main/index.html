@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-
 {% block css %}
 	<style>
 		.modal {
@@ -92,13 +91,15 @@
 
 {% block section %}
 
+	{% comment %} Окно со ссылкой на админку {% endcomment %}
 	<div id="modal" class="modal">
 		<div class="modal-content">
 			<span id="closeModal" class="close">&times;</span>
-			<p>Вы вошли под суперпользователем root! Вы можете сразу <a href="{% url "admin:index" %}">перейти</a> в панель администратора! </p>
+			<p>Вы вошли под администратором root! Вы можете сразу <a href="{% url "admin:index" %}">перейти</a> в панель администратора! </p>
 		</div>
 	</div>
 
+	{% comment %} Закомментированный блок с каруселью {% endcomment %}
 	{% comment %} <section id="home-section" class="hero">
 		<div class="home-slider owl-carousel">
 		
@@ -350,26 +351,23 @@
 	{% comment %} Каталог программ {% endcomment %}
     <section class="ftco-section ftco-project" id="projects-section">
     	<div class="container">
-
 			<div class="row justify-content-center pb-5">
 				<div class="col-md-12 heading-section text-center ftco-animate">
 					<h2 class="mb-4" style="text-align: left;">Программы повышения квалификации</h2>
 				</div>
         	</div>
 
-
     		<div class="row">
-
 				{% for curse in curses %}
 					{% if len_curses_is_even == False %}		
 						{% if curse == last_curse %}
 							<div class="col-md-12" style="height:470px">
-								<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% if curse.image %}{{ curse.image.url }}{% else %}{% static "images/form-photo.jpg" %}{% endif %}); height: 93%">
+								<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% if curse.image %}{{ curse.image.url }}{% else %}{% static "images/person-default.png" %}{% endif %}); height: 93%">
 
 									<div class="overlay"></div>
 									<div class="text text-center p-4">
 										<h3><a href="{% url "main:curse_cart" curse.slug %}">{{ curse.name }}</a></h3>
-										<span>{{ curse.hours }} часа</span>
+										<span>{% if curse.hours %}{{ curse.hours }}{% else %}{% endif %}</span>
 									</div>
 								</div>
 							</div>
@@ -410,7 +408,6 @@
 						</button>  
 					</a>
 				</div>
-
     		</div>
     	</div>
     </section>
@@ -435,7 +432,7 @@
 						<div class="d-flex align-items-center mb-3 meta">
 							<p class="mb-0">
 								<span class="mr-2">{{ new.date }}</span>
-								<a href="#" class="mr-2">Admin</a>
+								{% comment %} <a href="#" class="mr-2">Admin</a> {% endcomment %}
 								{% comment %} <a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a> {% endcomment %}
 							</p>
 						</div>
@@ -502,99 +499,111 @@
 
 			<div class="row no-gutters block-9">
 			
-				<div class="col-md-6 order-md-last d-flex">
-				
-				<form action="{% url "main:index" %}" class="form bg-light p-4 p-md-5 contact-form" id="education_request" method="post">
-					{% csrf_token %}
-					
-					
-					<div class="form-group">
-						<label for="id_first_name" class="form-label">Имя*</label>
-						<input type="text" class="form-control" id="id_first_name"
-								value="{% if form.first_name.value %} {{ form.first_name.value }} {% endif %}"
-								name="first_name"
-								placeholder="Введите ваше имя" required>
-							{% if form.first_name.errors %}
-								<div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
-							{% endif %}
-					</div>
-
-
-					<div class="form-group">
-						<label for="id_last_name" class="form-label">Фамилия*</label>
-						<input type="text" class="form-control" id="id_last_name"
-								value="{% if form.last_name.value %} {{ form.last_name.value }} {% endif %}"
-								name="last_name"
-								placeholder="Введите вашу фамилию" required>
-							{% if form.last_name.errors %}
-								<div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
-							{% endif %}
-					</div>
-
-					<div class="form-group">
-						<label for="id_surname" class="form-label">Отчество</label>
-						<input type="text" class="form-control" id="id_surname"
-								value="{% if form.surname.value %} {{ form.surname.value }} {% endif %}"
-								name="surname"
-								placeholder="Введите ваше имя пользователя">
-							{% if form.surname.errors %}
-								<div class="alert alert-danger alert-dismissible fade show">{{ form.surname.errors }}</div>
-							{% endif %}
-					</div>
-
-					<div class="form-group">
-						<label for="id_birth_date" class="form-label">Дата рождения*</label>
-						<input type="text" class="form-control" id="id_birth_date"
-								value="{% if form.birth_date.value %} {{ form.birth_date.value }} {% endif %}"
-								name="birth_date"
-								placeholder="Введите вашу дату рождения" required>
-							{% if form.birth_date.errors %}
-								<div class="alert alert-danger alert-dismissible fade show">{{ form.birth_date.errors }}</div>
-							{% endif %}
-					</div>
-					<div class="form-group">
-						<label for="id_email" class="form-label">Емейл*</label>
-						<input type="email" class="form-control" id="id_email"
-								value="{% if form.email.value %} {{ form.email.value }} {% endif %}"
-								name="email"
-								placeholder="Введите email" required>
-							{% if form.email.errors %}
-								<div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
-							{% endif %}
-					</div>
-					<div class="form-group">
-						<label for="id_phone" class="form-label">Номер телефона*</label>
-						<input type="text" class="form-control" id="id_phone"
-								value="{% if form.phone.value %} {{ form.phone.value }} {% endif %}"
-								name="phone"
-								placeholder="Введите телефон" required>
-							{% if form.phone.errors %}
-								<div class="alert alert-danger alert-dismissible fade show">
-									{{ form.phone.errors }}</div>
-							{% endif %}
-					</div>
-				
-
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" id="flexCheckDefault">
-						<label class="form-check-label" for="flexCheckDefault">
-						Согласие на обработку персональных данных
-						</label>
-					</div> 
-					
-					<p>
+				<div class="col-md-6 order-md-last d-flex">	
+					<form action="{% url "main:index" %}" class="form bg-light p-4 p-md-5 contact-form" id="education_request" method="post">
+						{% csrf_token %}
+						
 						<div class="form-group">
-							<button type="submit" class="btn btn-primary py-3 px-5">Отправить</button>
+							<label for="id_last_name" class="form-label">Фамилия*</label>
+							<input type="text" class="form-control" id="id_last_name"
+									value="{% if form.last_name.value %} {{ form.last_name.value }} {% endif %}"
+									name="last_name"
+									placeholder="Введите вашу фамилию" required>
+								{% if form.last_name.errors %}
+									<div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
+								{% endif %}
 						</div>
-					</p>
-				
-				</form>
-			
-			</div>
 
-			<div class="col-md-6 d-flex">
-				<div class="img" style="background-image: url({% static 'images/form-photo.jpg' %});"></div>
-			</div>
+						<div class="form-group">
+							<label for="id_first_name" class="form-label">Имя*</label>
+							<input type="text" class="form-control" id="id_first_name"
+									value="{% if form.first_name.value %} {{ form.first_name.value }} {% endif %}"
+									name="first_name"
+									placeholder="Введите ваше имя" required>
+								{% if form.first_name.errors %}
+									<div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
+								{% endif %}
+						</div>
+
+						<div class="form-group">
+							<label for="id_surname" class="form-label">Отчество</label>
+							<input type="text" class="form-control" id="id_surname"
+									value="{% if form.surname.value %} {{ form.surname.value }} {% endif %}"
+									name="surname"
+									placeholder="Введите ваше отчество">
+								{% if form.surname.errors %}
+									<div class="alert alert-danger alert-dismissible fade show">{{ form.surname.errors }}</div>
+								{% endif %}
+						</div>
+
+						<div class="form-group">
+							<label for="id_birth_date" class="form-label">Дата рождения*</label>
+							<input type="text" class="form-control" id="id_birth_date"
+									value="{% if form.birth_date.value %} {{ form.birth_date.value }} {% endif %}"
+									name="birth_date"
+									placeholder="Введите вашу дату рождения" required>
+								{% if form.birth_date.errors %}
+									<div class="alert alert-danger alert-dismissible fade show">{{ form.birth_date.errors }}</div>
+								{% endif %}
+						</div>
+
+						<div class="form-group">
+							<label for="id_email" class="form-label">Емейл*</label>
+							<input type="email" class="form-control" id="id_email"
+									value="{% if form.email.value %} {{ form.email.value }} {% endif %}"
+									name="email"
+									placeholder="Введите email" required>
+								{% if form.email.errors %}
+									<div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
+								{% endif %}
+						</div>
+
+						<div class="form-group">
+							<label for="id_phone" class="form-label">Номер телефона*</label>
+							<input type="text" class="form-control" id="id_phone"
+									value="{% if form.phone.value %} {{ form.phone.value }} {% endif %}"
+									name="phone"
+									placeholder="Введите телефон" required>
+								{% if form.phone.errors %}
+									<div class="alert alert-danger alert-dismissible fade show">
+										{{ form.phone.errors }}</div>
+								{% endif %}
+						</div>
+
+						<div class="form-group">
+							<label for="id_curse" class="form-label">Направление подготовки*</label>
+								<select name="curse" id="id_curse" class="form-control" required>
+									<option value="" selected>Не выбрано</option>
+									{% for curse in curses %}
+									<option value="{{ curse.id }}">{{ curse.name }}</option>
+									{% endfor %}
+								</select>
+								{% if form.curse.errors %}
+									<div class="alert alert-danger alert-dismissible fade show">
+										{{ form.curse.errors }}
+									</div>
+								{% endif %}
+						</div>
+						
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="flexCheckDefault">
+							<label class="form-check-label" for="flexCheckDefault">
+							Согласие на обработку персональных данных
+							</label>
+						</div> 
+						
+						<p>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary py-3 px-5" id="submitButton" disabled>Отправить</button>
+							</div>
+						</p>
+					
+					</form>
+				</div>
+
+				<div class="col-md-6 d-flex">
+					<div class="img" style="background-image: url({% static 'images/form-photo.jpg' %});"></div>
+				</div>
 			
 			</div>
 
@@ -640,6 +649,7 @@
     	</div>
 
     </section>
+
 {% endblock section %}
 
 {% block js %}
@@ -656,21 +666,23 @@
 		  });
 	</script>
 
-	{% comment %} <script>
-		document.getElementById('education_request').addEventListener('submit', function (event) {
-			event.preventDefault(); // Предотвращаем стандартную отправку формы
-		
-			// Показываем уведомление
-			const notification = document.getElementById('notificat');
-			notification.classList.add('show');
-		
-			// Скрываем уведомление через 3 секунды
-			setTimeout(() => {
-				notification.classList.remove('show');
-			}, 3000);
-		
+	<script>
+		var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+		var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+			return new bootstrap.Dropdown(dropdownToggleEl)
+		})
+	</script>
 
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const checkbox = document.getElementById('flexCheckDefault');
+			const submitButton = document.getElementById('submitButton');
+	
+			// Проверяем состояние чекбокса при изменении
+			checkbox.addEventListener('change', function() {
+				submitButton.disabled = !checkbox.checked;
+			});
 		});
-	</script> {% endcomment %}
+	</script>
 
 {% endblock js %}

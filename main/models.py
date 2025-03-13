@@ -11,8 +11,9 @@ class Curses(models.Model):
     description = models.TextField(blank=True, null=True, verbose_name='Описание', default='Описание программы еще не добавлено')
     sertificate = models.URLField(blank=True, null=True, verbose_name='Сертификат об окончании (URL)')
     structure = models.TextField(blank=True, null=True, verbose_name='Структура программы', default='Структура программы еще не добавлена')
-    hours = models.IntegerField(blank=True, null=True,verbose_name='Количество часов')
+    hours = models.IntegerField(blank=True, null=True,verbose_name='Количество часов',default=0)
     image = models.ImageField(upload_to='curse_image', blank=True, null=True, verbose_name='Изображение')
+    paid_or_free = models.CharField(max_length=2, blank=True, null=True, default='б', verbose_name='Бюджет/Внебюджет (б/вб)')
 
     class Meta:
         db_table = 'curse'
@@ -32,7 +33,6 @@ class Curses(models.Model):
 
     image_tag.short_description = 'Фото'
 
-
 class Disciplines(models.Model):
     name = models.CharField(max_length=150, unique=True, verbose_name='Название')
     curse = models.ForeignKey(to=Curses, on_delete=models.CASCADE, verbose_name='Направление')
@@ -45,10 +45,9 @@ class Disciplines(models.Model):
     def __str__(self):
         return self.name
 
-
 class Students(models.Model):
-    first_name = models.CharField(max_length=150, verbose_name='Имя')
     last_name = models.CharField(max_length=150, verbose_name='Фамилия')
+    first_name = models.CharField(max_length=150, verbose_name='Имя')
     surname = models.CharField(max_length=150, blank=True, null=True, verbose_name='Отчество')
     birth_date = models.DateField(max_length=10, blank=True, null=True, verbose_name='Дата рождения')
     curse = models.ForeignKey(to=Curses, on_delete=models.CASCADE, verbose_name='Направление', blank=True, null=True,)
@@ -62,7 +61,6 @@ class Students(models.Model):
         db_table = 'student'
         verbose_name = 'Студент'
         verbose_name_plural = 'Студенты'
-
 
 class Lecturers(models.Model):
     first_name = models.CharField(max_length=150, unique=True, verbose_name='Имя')
@@ -80,7 +78,6 @@ class Lecturers(models.Model):
         verbose_name = 'Преподаватель'
         verbose_name_plural = 'Преподаватели'
 
-
 class Documents(models.Model):
     name = models.CharField(max_length=150, unique=True, verbose_name='Название')
     url = models.URLField(max_length=150, unique=True, verbose_name='Ссылка на документ')
@@ -92,11 +89,11 @@ class Documents(models.Model):
         verbose_name_plural = 'Добавить документы'
 
 class News(models.Model):
-    title = models.CharField(max_length=150, verbose_name='Заголовок', default='Why Lead Generation is Key for Business Growth')
-    subtitle = models.TextField(verbose_name='Подзаголовок', default='A small river named Duden flows by their place and supplies it with the necessary regelialia.')
+    title = models.CharField(max_length=150, verbose_name='Заголовок', default='Заголовок интересной новости')
+    subtitle = models.TextField(verbose_name='Подзаголовок', default='Подзаголовок интересной новости')
     date = models.DateField(auto_now_add=True, verbose_name='Дата публикации')
     text = models.TextField(verbose_name='Текст новости', blank=True, null=True)
-    image = models.ImageField(upload_to='news_image', blank=True, null=True, verbose_name='Изображение', default='static/images/person-default.png')
+    image = models.ImageField(upload_to='news_image', blank=True, null=True, verbose_name='Изображение')
     slug = models.SlugField(max_length=256, unique=True, blank=True, null=True, verbose_name='URL')
 
 
@@ -104,6 +101,16 @@ class News(models.Model):
         db_table = 'news'
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
+
+    def get_image(self):
+        if not self.image:
+            return '/static/images/no_photo.png'
+        return self.image.url
+
+    def image_tag(self):
+        return mark_safe('<img src="%s" width=150px height=150px />' % self.get_image())
+
+    image_tag.short_description = 'Фото'
 
 class NewsTag(models.Model):
     tag = models.CharField(max_length=50, verbose_name='Тег')

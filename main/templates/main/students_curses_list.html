@@ -12,12 +12,43 @@
             padding: 8px;
             text-align: justify;
         }
+
+        
+        [data-tooltip] {
+            position: relative; /* Относительное позиционирование */ 
+        }
+        [data-tooltip]::after {
+            content: attr(data-tooltip); /* Выводим текст */
+            position: absolute; /* Абсолютное позиционирование */
+            
+            left: 0; top: 0; /* Положение подсказки */
+            
+            color: #fff; /* Цвет текста */
+            padding: 0.5em; /* Поля вокруг текста */
+            
+            pointer-events: none; /* Подсказка */
+            opacity: 0; /* Подсказка невидима */
+            transition: 0.5s; /* Время появления подсказки */
+        } 
+        [data-tooltip]:hover::after {
+            opacity: 1; /* Показываем подсказку */
+            top: 2em; /* Положение подсказки */
+        }
+        
     </style>
 {% endblock css %}
 
 {% block section %}
-    <section class="ftco-section ftco-animate">
+    <section class="ftco-section ftco-animate" id="students">
         <div class="container">
+
+            <div class="row justify-content-center pb-5">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <h2 class="mb-4" style="text-align: left;">Список поступивших</h2>
+                </div>
+            </div>
+
+            {% comment %} Таблица студентов {% endcomment %}
             <table>
                 <thead>
                     <tr>
@@ -27,22 +58,25 @@
                         <th>Дата рождения</th>
                         <th>№ заявления</th>
                         <th>Бюджет/Внебюджет</th>
+                        <th>Форма обучения</th>
                         <th>Примечания</th>
+                        
                     </tr>
                 </thead>
 
                 <tbody>
 
                     {% for s in students %}
-                        {% if s.is_paid == True %}
+                        {% if s.curse_is_paid == True %}
                         <tr>
                             <td>{{ s.id }}</td>
                             <td>{{ s.last_name }} {{ s.first_name }} {{ s.surname }}</td>
-                            <td>{% if s.curse %}{{ s.curse }}{% else %}Не записан{% endif %} </td>
+                            <td>{% if s.curse %}{{ s.curse }}{% else %}{% endif %} </td>
                             <td>{{ s.birth_date }}</td>
-                            <td>{{ s.id }}</td>
-                            <td>{{ s.curse.edu_form }}</td>
-                            <td>{% if s.description %}{{ s.description }}{% else %}Нет примечаний{% endif %}</td>
+                            <td style="text-align: center;">К-0000{{ s.id }}</td>
+                            <td style="text-align: center;">{{ s.curse.paid_or_free }}</td>
+                            <td style="text-align: center;">{{ s.curse.edu_form }}</td>
+                            <td>{% if s.description %}{{ s.description }}{% else %}{% endif %}</td>
                         </tr>
                         {% endif %}
                     {% endfor %}
@@ -50,12 +84,15 @@
                 </tbody>
             </table>
 
+            {% comment %} Скачать таблицу {% endcomment %}
             <div class="col-md-8">
-
-                <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-					<li class="ftco-animate"><a href="#"><span class="icon-table"></span></a></li>
+                <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5" data-tooltip='Скачать в CSV'>
+                    <li class="ftco-animate">
+                        <a href="{% url "main:get_file" %}">
+                            <span class="icon-table"></span>
+                        </a>
+                    </li>
 				</ul>
-
             </div>
 
         </div>
