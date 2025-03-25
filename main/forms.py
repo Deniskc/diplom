@@ -1,7 +1,7 @@
 from django import forms
 
 
-from main.models import Students
+from main.models import Students, Settings
 
 
 class RequestEducationForm(forms.ModelForm):
@@ -17,10 +17,10 @@ class RequestEducationForm(forms.ModelForm):
             'curse',
         ]
 
-    # first_name = forms.CharField()
-    # last_name = forms.CharField()
-    # surname = forms.CharField()
-    # birth_date = forms.DateField()
-    # email = forms.EmailField()
-    # phone = forms.IntegerField()
-    # curse = forms.IntegerField()
+class SettingsForm(forms.ModelForm):
+    class Meta:
+        model = Settings
+        fields = [
+            'theme',
+        ]
+    

@@ -1,15 +1,34 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from main.forms import RequestEducationForm
-from main.models import Curses, Documents, News, NewsTag, Students
+from main.forms import RequestEducationForm, SettingsForm
+from main.models import Curses, Documents, News, NewsTag, Settings, Students
+
 import csv
 import random as r
+from datetime import datetime 
 
+def toggle_theme(request):
+    current_theme = request.session.get('theme','light')
+
+    if current_theme == 'light':
+        request.session['theme'] = 'dark'
+    else:
+        request.session['theme'] = 'light'
+
+    return redirect(request.META.get('HTTP_REFERER','/'))
+
+ 
 def index(request):
+    
+    theme = request.GET.get('action')
+    if theme == None:
+        theme = 'light'
 
-    # selected_curse = request.POST.get('id_curse')
+
+        
+        
 
     news = News.objects.all().order_by('-date')
 
@@ -19,11 +38,14 @@ def index(request):
 
     curses = Curses.objects.all()
     len_curses_is_even = False
-    if len(Curses.objects.all())%2 == 0:
+    len_curses = len(Curses.objects.all())
+    if len_curses%2 == 0:
         len_curses_is_even = True
 
     last_index = len(Curses.objects.all())-1
     last_curse = Curses.objects.all()[last_index]
+
+    year = datetime.now().year - 1930
     
     if request.method == 'POST':
         form = RequestEducationForm(request.POST)
@@ -33,6 +55,7 @@ def index(request):
             return HttpResponseRedirect(reverse('main:students'))      
     else:
         form = RequestEducationForm()
+        
 
     context = {
         'title': 'ДПО - Главная',
@@ -42,8 +65,15 @@ def index(request):
         'form': form,
         'last_curse': last_curse,
         'len_curses_is_even': len_curses_is_even,
+        'len_curses': len_curses,
         'news':news,
+        'year':year,
+        'theme':theme,
+
     }
+
+    
+    
 
     return render(request, 'main/index.html', context)
 
@@ -58,20 +88,21 @@ def curse_cart(request, curse_slug):
         'curse': curse,
         'documents': documents,
     }
+    
+
 
     return render(request, 'main/curse_cart.html', context)
 
 def students(request):
 
     students = Students.objects.all()
-    rand_list = [r.randint(1111,9999) for i in range(0,len(Students.objects.all()))]
     
     context = {
         'title': 'ДПО - Поступающим',
         'content': "",
         'students': students,
     }
-
+    
     return render(request, 'main/students_curses_list.html', context)
 
 def news(request, news_slug):
@@ -93,6 +124,8 @@ def news(request, news_slug):
         'news_tags': news_tags,
         'all_news_tags': all_news_tags,
     }
+    
+
 
     return render(request, 'main/single.html', context)
 

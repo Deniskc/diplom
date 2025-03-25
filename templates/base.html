@@ -4,48 +4,165 @@
 	{% load static %}
 
 	<head>
-	<title>{{ title }}</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>{{ title }}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+
+		<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+
+		<link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+		<link rel="stylesheet" href="{% static 'css/aos.css' %}">
+		<link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+		<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+		<link rel="icon" href="{% static 'images/favicon.ico' %}">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 
 
+		{% block css %}
+		{% endblock css %}
+		
+		{% if request.session.theme == 'light' %}
+			{% comment %} Блок для изменения темы {% endcomment %}
+				<style>
+					body {
+						background: white;
+						color: #565656
+					}
+
+					.ftco-footer a:hover {
+						color: #ffbd39
+					}
+
+					.ftco-footer-social li a:hover {
+						color: black
+					}
+
+					.slider-text .bread {
+						color: black;
+					}
+
+					.slider-text .breadcrumbs span a {
+						color: grey !important;
+					}
+
+					.slider-text .breadcrumbs span {
+						color: grey !important;
+					}
+
+					.bg-dark {
+						background: #e9e9e9 !important;
+					}
+
+					.block-21 .text .heading a {
+						color:black;
+					}
+
+					.ftco-counter .block-18 {
+						background: #f1e9e9;
+					}
+
+					.ftco-counter .text span {
+						color: grey;
+					}
+
+					.ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
+						color: black !important;
+					}
+
+					.blog-entry .text .heading a {
+						color: black;
+					}
+
+					.ftco-navbar-light .navbar-brand {
+						color: black;
+					}
+
+					.ftco-navbar-light {
+						background: white !important;
+						border-bottom: 2px solid black;
+					}
 
 
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+				
+					.ftco-navbar-light.scrolled .navbar-brand {
+						color: black !important;
+					}
 
 
+					.ftco-navbar-light.scrolled .nav-item > .nav-link {
+						color: black;
+					}
 
-	<link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
-	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+					.ftco-navbar-light.scrolled {
+						background: white !important;
+						border-bottom: 2px solid black;
+					}
 
-	<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-	<link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
-	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+					.ftco-footer {
+						background: white;
+					}
 
-	<link rel="stylesheet" href="{% static 'css/aos.css' %}">
+					.ftco-footer .ftco-footer-widget h2 {
+						color: black;
+					}
 
-	<link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+					.ftco-footer a {
+						color: grey;
+					}
 
-	<link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
-	<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
-	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+					.ftco-footer p {
+						color: grey;
+					}
 
-	{% block css %}
-	
-	{% endblock css %}
+					.project .text h3 a {
+						color: black;
+					}
+
+					.project .text span {
+						color: black;
+					}
+
+					h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
+						color: black;
+					}
+
+
+					.bg-light {
+						background: #f1e9e9 !important;
+					} 
+
+					{% comment %} .form-control {
+						background: black !important;
+					} {% endcomment %}
+
+				</style>
+			{% comment %}{% endcomment %}
+		{% endif %}
 
 	</head>
 
 	<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 		
 		{% comment %} Верхнее меню {% endcomment %}
-		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar" style="border-bottom: 4px solid white;">
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar" style="{% if request.session.theme != 'light' %}border-bottom: 2px solid white;{% endif %}">
 			<div class="container">
 
 				<div class="nav-link"> 
-					<a class="navbar-brand" href="{% url "main:index" %}">ПФЭК ДПО</a>
+					{% comment %} <a class="navbar-brand">ПФЭК ДПО</a> {% endcomment %}
+					 <a href="{% url "main:index" %}">
+						<img src="{% if request.session.theme != 'dark' %}{% static 'images/logo_fu.png' %}{% else %}{% static 'images/logo_fu-invert.png' %}{% endif %}" width="240px" height="80px">
+					 </a>
 				</div>
 
 				<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,14 +175,45 @@
 						<li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#projects-section{% endif %}" class="nav-link"><span>программы</span></a></li>
 						<li class="nav-item"><a href="{% if request.path != "/" %}{% url "main:index" %}{% else %}#contact-section{% endif %}" class="nav-link"><span>оставить заявку</span></a></li>
 						<li class="nav-item"><a href="{% if request.path == "/students/" %}#students{% else %}{% url "main:students" %}{% endif %}" class="nav-link"><span>поступающим</span></a></li>
-
 						{% if not user.is_authenticated %}
-							<li class="nav-item"><a href="{% if request.path == "/login/" %}#login{% else %}{% url "users:login" %}{% endif %}" class="nav-link"><span>войти</span></a></li>
+						<li class="nav-item"><a href="{% if request.path == "/login/" %}#login{% else %}{% url "users:login" %}{% endif %}" class="nav-link"><span>войти</span></a></li>
 						{% endif %}
 						
 						{% if user.is_authenticated %}
-							<li class="nav-item"><a href="{% url "users:logout" %}" class="nav-link"><span>выйти</span></a></li>
+						<li class="nav-item"><a href="{% url "users:logout" %}" class="nav-link"><span>выйти</span></a></li>
 						{% endif %}
+
+						{% if is_superuser == True %}
+						<li class="nav-item"><a href="{% url "admin:index" %}" class="nav-link"><span>админ</span></a></li>
+						{% endif %}
+						
+						<li class="nav-item">
+							<a class="nav-link" href="{% url "main:toggle_theme" %}">
+								{% if request.session.theme == 'dark' %}
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun-fill" viewBox="0 0 16 16">
+									<path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+								</svg>
+								{% else %}
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 0 16 16">
+									<path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
+								</svg>
+								{% endif %}
+							</a>
+						</li>
+
+
+						{% comment %} Поиск {% endcomment %}
+						{% comment %} <li>         
+							  <form action="#" class="search-form">
+								<div class="form-group">
+								  <span class="icon icon-search"></span>
+								  <input type="text" class="form-control" placeholder="Искать..." style="width: 220px;">
+								</div>
+							  </form>
+						</li> {% endcomment %}
+
+						<style> 
+						</style>
 					
 					</ul>
 				</div>
@@ -74,17 +222,14 @@
 		</nav>
 
 		{% comment %} Пустая секция {% endcomment %}
-		<section class="ftco-section ftco-hireme img margin-top" id="projects-section" style="background-color:black; margin-top:-160px;">
+		<section class="ftco-section ftco-hireme img margin-top" id="projects-section" style="background: {% if request.session.theme == 'light' %}white{% else %}black{% endif %}; margin-top:-160px;">
 		</section>
-
-		{% comment %} <section class="ftco-section ftco-hireme img margin-top" style="background-color: black;">
-		</section> {% endcomment %}
 
 		{% block section %}
 		{% endblock section %}
 			
 		{% comment %} Подвал {% endcomment %}
-		<footer class="ftco-footer ftco-section" style="margin-top:50px;border-top:5px solid white">
+		<footer class="ftco-footer ftco-section" style="margin-top:50px;border-top:2px solid {% if request.session.theme == 'light' %}black{% else %}white{% endif %};">
 			<div class="container">
 				<div class="row mb-5">
 
@@ -157,6 +302,7 @@
 			<script src="{% static 'js/modal_window.js' %}"></script>
 			
 			<script src="{% static 'js/main.js' %}"></script>
+			{% comment %} <script src="{% static 'js/anime.min.js' %}"></script> {% endcomment %}
 
 			{% block js %}
 			

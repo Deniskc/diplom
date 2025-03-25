@@ -17,7 +17,6 @@ class User(AbstractUser):
         error_messages={
             "unique": ("A user with that username already exists."),
         },
-        
     )
 
     class Meta:

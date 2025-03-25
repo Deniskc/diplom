@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 
+
+
 {% block css %}
 	<style>
 		.modal {
@@ -86,334 +88,475 @@
 				transform: translateY(0);
 			}
 		}
+
+
+	{% comment %} js lib styles {% endcomment %}
+		.animation-wrapper {
+			width: 80%;
+			padding-bottom: 40%;
+		  }
+		  
+		  /** Layered Animation **/
+		  
+		  .layered-animations {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 1100px;
+			height: 550px;
+			margin: -275px 0 0 -550px;
+		  }
+		  
+		  .layered-animations .shape {
+			position: absolute;
+			top: 50%;
+			overflow: visible;
+			width: 280px;
+			height: 280px;
+			margin-top: -140px;
+			stroke: transparent;
+			stroke-width: 1px;
+			fill: url(#shapesGradient);
+		  }
+		  
+		  @media (min-width: 740px) {
+			.layered-animations .shape {
+			  stroke-width: .5px;
+			}
+		  }
+		  
+		  .layered-animations .small.shape {
+			width: 64px;
+			height: 64px;
+			margin-top: -32px;
+			stroke: currentColor;
+			fill: currentColor;
+		  }
+		  
+		  .layered-animations .x-small.shape {
+			width: 32px;
+			height: 32px;
+			margin-top: -16px;
+			stroke: currentColor;
+			fill: currentColor;
+		  }
+
+		  .circle {
+			background-color: red;
+		  }
+
 	</style>
 {% endblock css %}
 
+
+
 {% block section %}
 
+
 	{% comment %} Окно со ссылкой на админку {% endcomment %}
-	<div id="modal" class="modal">
+	{% comment %} <div id="modal" class="modal">
 		<div class="modal-content">
 			<span id="closeModal" class="close">&times;</span>
 			<p>Вы вошли под администратором root! Вы можете сразу <a href="{% url "admin:index" %}">перейти</a> в панель администратора! </p>
 		</div>
-	</div>
-
-	{% comment %} Закомментированный блок с каруселью {% endcomment %}
-	{% comment %} <section id="home-section" class="hero">
-		<div class="home-slider owl-carousel">
-		
-			<div class="slider-item ">
-				<div class="container">
-					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="slider-item ">
-				<div class="container">
-					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="slider-item ">
-				<div class="container">
-					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="slider-item">
-				<div class="container">
-					<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-						
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-md-4 d-flex ftco-animate">
-							<div class="blog-entry justify-content-end">
-								<a href="#" class="block-20" style="background-image: url('{% static 'images/person-default.png' %}');">
-								</a>
-								<div class="text mt-3 float-right d-block">
-									<div class="d-flex align-items-center mb-3 meta">
-										<p class="mb-0">
-											<span class="mr-2">14 янв</span>
-											<a href="#" class="mr-2">Admin</a>
-											<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-										</p>
-									</div>
-									<h3 class="heading"><a href="#">Заголовок</a></h3>
-									<p>Подзаголовок</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+	</div> {% endcomment %}
 
 
+	{% comment %} Блок с анимацией {% endcomment %}
+	{% comment %} <section class="ftco-section">
+		<div class="container">
+			<script>
+
+				document.addEventListener("DOMContentLoaded", (event) => {
+					var scene = new THREE.Scene();
+					document.addEventListener( 'mousemove', onMouseMove, false );
+					var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+					var mouseX;
+					var mouseY;
+
+					var renderer = new THREE.WebGLRenderer();
+					renderer.setSize( window.innerWidth, window.innerHeight );
+					document.body.appendChild( renderer.domElement );
+
+					window.addEventListener("resize", function() {
+					camera.aspect = window.innerWidth / window.innerHeight;
+					camera.updateProjectionMatrix();
+					renderer.setSize( window.innerWidth, window.innerHeight );
+					});
+
+					var distance = Math.min(200, window.innerWidth / 4);
+					var geometry = new THREE.Geometry();
+
+					for (var i = 0; i < 1600; i++) {
+
+					var vertex = new THREE.Vector3();
+
+					// var theta = THREE.Math.randFloatSpread(360); 
+					var theta = Math.acos(THREE.Math.randFloatSpread(2)); 
+					var phi = THREE.Math.randFloatSpread(360); 
+
+					vertex.x = distance * Math.sin(theta) * Math.cos(phi);
+					vertex.y = distance * Math.sin(theta) * Math.sin(phi);
+					vertex.z = distance * Math.cos(theta);
+
+					geometry.vertices.push(vertex);
+					}
+					var particles = new THREE.Points(geometry, new THREE.PointsMaterial({color: 0xff44ff, size: 2}));
+					particles.boundingSphere = 50;
+
+
+					var renderingParent = new THREE.Group();
+					renderingParent.add(particles);
+
+					var resizeContainer = new THREE.Group();
+					resizeContainer.add(renderingParent);
+					scene.add(resizeContainer);
+
+					camera.position.z = 400;
+
+					var animate = function () {
+					requestAnimationFrame( animate );
+					renderer.render( scene, camera );
+					};
+					var myTween;
+					function onMouseMove(event) {
+					if(myTween)
+						myTween.kill();
+					
+					mouseX = ( event.clientX / window.innerWidth ) * 2 - 1;
+					mouseY = - ( event.clientY / window.innerHeight ) * 2 + 1;
+					myTween = gsap.to(particles.rotation, {duration: 0.1, x: mouseY*-1, y: mouseX});
+					//particles.rotation.x = mouseY*-1;
+					//particles.rotation.y = mouseX;
+					}
+					animate();
+
+					// Scaling animation
+					var animProps = {scale: 1, xRot: 0, yRot: 0};
+					gsap.to(animProps, {duration: 10, scale: 1.3, repeat: -1, yoyo: true, ease: "sine", onUpdate: function() {
+					renderingParent.scale.set(animProps.scale,animProps.scale,animProps.scale);
+					}});
+
+					gsap.to(animProps, {duration: 120, xRot: Math.PI * 2, yRot: Math.PI * 4, repeat: -1, yoyo: true, ease: "none", onUpdate: function() {
+					renderingParent.rotation.set(animProps.xRot,animProps.yRot,0);
+					}});
+				
+				});
+				
+				
+			</script>
 		</div>
 	</section> {% endcomment %}
 
-	{% comment %} Каталог программ {% endcomment %}
-    <section class="ftco-section ftco-project" id="projects-section">
-    	<div class="container">
+
+	{% comment %} История пермского филиала HISTORY_BLOCK {% endcomment %}
+	<section class="ftco-section ftco-project" id="history-section" style="margin-bottom: -140px;">
+		<div class="container">
+			<div class="row justify-content-center pb-5">
+
+				<style>
+					@keyframes move {
+						0% {
+							transform: translateX(0);
+						}
+						100% {
+							transform: translateX(100px);
+						}
+					}
+
+					/* .x {
+						animation: move 2s ease infinite;
+					}
+
+					.x-1 {
+						animation: move 2s ease infinite;
+					} */
+				</style>
+
+				<!-- title -->
+				<div class="col-md-12 heading-section text-center ftco-animate">
+					<h2 class="x mb-4" style="text-align: left;">История Пермского филиала</h2>
+				</div>
+
+				<!-- subtitle -->
+				<h2 class="x-1 mb-4 ftco-animate" style="text-align: left;">Пермского филиала Финансового университета</h2>
+
+				<!-- text -->
+				<h4 class="ftco-animate" style="text-align: justify;color: grey;"> 
+					Пермский финансово - экономический колледж - филиал Финансового университета при Правительстве Российской Федерации.
+					Финансовый университет - один из старейших российских вузов, готовящих экономистов, финансистов, юристов по финансовому праву, математиков, 
+					IT-специали​стов, социологов и политологов.
+					Пермский финансово-экономический колледж ведёт свою историю с мая 1930 года. 
+					Учебное заведение прошло путь от техникума до филиала Финансового университета и приобрело статус одного из базовых учебных заведений 
+					в Пермском крае по подготовке специалистов в области финансов, бухгалтерского учёта, страхового дела, права.
+				</h4>
+
+			</div>
+		</div>
+	</section>
+
+
+	{% comment %} Статистика {% endcomment %}
+	<section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter img" id="section-counter">
+		<div class="container">
+			<div class="row d-md-flex align-items-center">
+
+				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+					<div class="block-18">
+						<div class="text">
+							<strong class="number" data-number="{{ year }}">0</strong>
+							<span>лет с основания</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+					<div class="block-18">
+						<div class="text">
+							<strong class="number" data-number="{{ len_curses }}">0</strong>
+							<span>специальностей</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+					<div class="block-18">
+						<div class="text">
+							<strong class="number" data-number="1300">0</strong>
+							<span> студентов</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+					<div class="block-18">
+						<div class="text">
+								<strong class="number" data-number="60">0</strong>
+								<span>преподавателей</span>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	{% comment %} Как поступить. Правила приема HOW_EDUCATE_BLOCK {% endcomment %}
+	<section id="home-section" class="hero" style="margin-top:50px;margin-bottom:70px;">
+		<div class="container">
+			<div class="row justify-content-center pb-5">
+
+				<!-- title -->
+				<div class="col-md-12 heading-section text-center ftco-animate">
+					<h2 class="mb-4">Как поступить</h2>
+				</div>
+
+				<!-- subtitle -->
+				<h4 class="ftco-animate" style="text-align: justify;color: grey;">
+					Мы сделали процесс поступления максимально удобным и простым.
+					Более того, мы сопровождаем абитуриента на всех этапах: от подачи документов до момента зачисления
+				</h4>
+				
+			</div>
+		</div>
+
+		{% comment %} <div class="container">
+			<div class="row">
+
+				<div class="col-md-4" style="height:375px;">
+					<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% static "images/person-default.png" %}); height: 93%;">
+						
+						<div class="text text-center p-4">
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-md-8" style="height:375px;">
+					<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% static "images/person-default.png" %}); height: 93%;">						
+						<div class="text text-center p-4">
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div> {% endcomment %}
+		
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-4" style="height:375px;">
+					<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% static "images/person-default.png" %}); height: 93%; border-radius:190px; border: solid grey 1px">
+
+						<div class="overlay" style="border-radius:190px"></div>
+						<div class="text text-center p-4">
+						</div>
+
+					</div>
+
+					<a class="ftco-animate">Подайте заявление в приемную комиссию</a>
+				</div>
+
+				<div class="col-md-4" style="height:375px;">
+					<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% static "images/person-default.png" %}); height: 93%; border-radius:190px; border: solid grey 1px">
+
+						<div class="overlay" style="border-radius:190px"></div>
+						<div class="text text-center p-4">
+						</div>
+
+					</div>
+
+					<a class="ftco-animate">Поступление без ЕГЭ и вступительных испытаний, по рейтингу среднего балла аттестата</a>
+				</div>
+
+				<div class="col-md-4" style="height:375px;">
+					<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% static "images/person-default.png" %}); height: 93%; border-radius:190px; border: solid grey 1px">
+
+						<div class="overlay" style="border-radius:190px"></div>
+						<div class="text text-center p-4">
+						</div>
+
+					</div>
+
+					<a class="ftco-animate">Предоставьте необходимый пакет документов</a>
+				</div>
+
+			</div>
+		</div>
+		
+	</section> 
+
+
+	{% comment %} Главные преимущества MAIN_PLUSES {% endcomment %}
+	<section class="ftco-section ftco-project" id="" style="margin-bottom: -150px;">
+		<div class="container">
+
 			<div class="row justify-content-center pb-5">
 				<div class="col-md-12 heading-section text-center ftco-animate">
-					<h2 class="mb-4" style="text-align: left;">Программы повышения квалификации</h2>
+					<h2 class="mb-4" style="text-align: left;">Главные преимущества поступления к нам</h2>
+				</div>
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-4" style="height:350px;">
+					<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% if curse.image %}{{ curse.image.url }}{% else %}{% static "images/person-default.png" %}{% endif %}); height: 93%; border: solid grey 1px">
+
+						<div class="overlay"></div>
+						<div class="text text-center p-4">
+							<h3><b href="">Проживание</b></h3>
+							<span>
+								Общежитие предоставляется всем иногородним студентам.
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4" style="height:350px">
+					<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% if curse.image %}{{ curse.image.url }}{% else %}{% static "images/person-default.png" %}{% endif %}); height: 93%; border: solid grey 1px">
+
+						<div class="overlay"></div>
+						<div class="text text-center p-4">
+							<h3><b href="">Питание</b></h3>
+							<span>В корпусе филиала имеется бюджетная столовая, два буфета.</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4" style="height:350px">
+					<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% if curse.image %}{{ curse.image.url }}{% else %}{% static "images/person-default.png" %}{% endif %}); height: 93%; border: solid grey 1px">
+
+						<div class="overlay"></div>
+						<div class="text text-center p-4">
+							<h3><b href="">Преподаватели</b></h3>
+							<span>В Пермском филиале преподаватели регулярно повышают свою квалификацию и проходят стажировки.</span>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+
+
+	{% comment %} Каталог программ {% endcomment %}
+    <section class="ftco-section ftco-project" id="projects-section" style="margin-bottom: -160px;">
+    	<div class="container">
+
+			<div class="row justify-content-center pb-5">
+				<div class="col-md-12 heading-section text-center ftco-animate">
+					<h2 class="mb-4" style="text-align: left;">Перечень программ повышения квалификации</h2>
 				</div>
         	</div>
 
     		<div class="row">
 				{% for curse in curses %}
 					{% if len_curses_is_even == False %}		
+
 						{% if curse == last_curse %}
-							<div class="col-md-12" style="height:470px">
+							<div class="col-md-12" style="height:400px">
 								<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% if curse.image %}{{ curse.image.url }}{% else %}{% static "images/person-default.png" %}{% endif %}); height: 93%">
 
 									<div class="overlay"></div>
 									<div class="text text-center p-4">
 										<h3><a href="{% url "main:curse_cart" curse.slug %}">{{ curse.name }}</a></h3>
-										<span>{% if curse.hours %}{{ curse.hours }}{% else %}{% endif %}</span>
+										<span>{% if curse.hours %}{{ curse.hours }} ч.{% else %}72 ч.{% endif %}</span>
 									</div>
 								</div>
 							</div>
 						{% else %}
-							<div class="col-md-6" style="height:470px">
-								<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% if curse.image %}{{ curse.image.url }}{% else %}{% static "images/form-photo.jpg" %}{% endif %}); height: 93%">
+							<div class="col-md-4" style="height:400px">
+								<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% if curse.image %}{{ curse.image.url }}{% else %}{% static "images/person-default.png" %}{% endif %}); height: 93%">
 
 									<div class="overlay"></div>
 									<div class="text text-center p-4">
 										<h3><a href="{% url "main:curse_cart" curse.slug %}">{{ curse.name }}</a></h3>
-										<span>{{ curse.hours }} часа</span>
+										<span>{% if curse.hours %}{{ curse.hours }} ч.{% else %}72 ч.{% endif %}</span>
 									</div>
 								</div>
 							</div>
 						{% endif %}
+
 					{% else %}
-						<div class="col-md-6" style="height:470px">
-							<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% if curse.image %}{{ curse.image.url }}{% else %}{% static "images/form-photo.jpg" %}{% endif %}); height: 93%">
+						<div class="col-md-4" style="height:400px">
+							<div class="project img ftco-animate d-flex justify-content-center align-items-center" style="background-image: url({% if curse.image %}{{ curse.image.url }}{% else %}{% static "images/person-default.png" %}{% endif %}); height: 93%">
 
 								<div class="overlay"></div>
 								<div class="text text-center p-4">
 									<h3><a href="{% url "main:curse_cart" curse.slug %}">{{ curse.name }}</a></h3>
-									<span>{{ curse.hours }} часа</span>
+									<span>{% if curse.hours %}{{ curse.hours }} ч.{% else %}72 ч.{% endif %}</span>
 								</div>
 							</div>
 						</div>
 					{% endif %}
+
 				{% endfor %}
 				
 				<div class="show-more" style="height:100px;text-align: center; width:100%;">
 					<a>
-						<button id="rotateButton" class="arrow-button">
+						<button id="rotateButton" class="arrow-button" style="border:0">
 							<span class="arrow">
 								<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-chevron-compact-down" viewBox="0 0 16 16">
-									<path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67z"/>
+									<path {% if request.session.theme == 'light' %}style="fill:#ffbd39;"{% endif %} fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67z"/>
 								</svg>
 							</span>
 						</button>  
 					</a>
 				</div>
+
     		</div>
     	</div>
     </section>
 
+
 	{% comment %} Новости {% endcomment %}
-    <section class="ftco-section" id="blog-section">
+    <section class="ftco-section" id="blog-section" style="margin-bottom: -160px;">
       <div class="container">
 		
         <div class="row justify-content-center mb-5 pb-5">
@@ -426,7 +569,7 @@
 		{% for new in news %}
 			<div class="col-md-4 d-flex ftco-animate">
 				<div class="blog-entry justify-content-end">
-					<a href="{% url "main:news" new.slug %}" class="block-20" style="background-image: url('{% if new.image %}{{ new.image.url }}{% else %}{% static 'images/person-default.png' %}{% endif %}');">
+					<a href="{% url "main:news" new.slug %}" class="block-20" style="background-image: url('{% if new.image %}{{ new.image.url }}{% else %}{% static 'images/person-default.png' %}{% endif %}');border: solid grey 1px;">
 					</a>
 					<div class="text mt-3 float-right d-block">
 						<div class="d-flex align-items-center mb-3 meta">
@@ -447,45 +590,6 @@
       </div>
     </section>
 
-	{% comment %} Статистика {% endcomment %}
-    <section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter img" id="section-counter">
-    	<div class="container">
-				<div class="row d-md-flex align-items-center">
-          <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text">
-                <strong class="number" data-number="100">0</strong>
-                <span>Awards</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text">
-                <strong class="number" data-number="1200">0</strong>
-                <span>Complete Projects</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text">
-                <strong class="number" data-number="1200">0</strong>
-                <span>Happy Customers</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
-            <div class="block-18">
-              <div class="text">
-                <strong class="number" data-number="500">0</strong>
-                <span>Cups of coffee</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
 	{% comment %} Оставить заявку {% endcomment %}
     <section class="ftco-section contact-section ftco-no-pb" id="contact-section">
@@ -650,10 +754,14 @@
 
     </section>
 
+
 {% endblock section %}
 
-{% block js %}
 
+
+{% block js %}
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+	
 	<script>
 		// Передаем информацию из Django в JavaScript
 		const isSuperuser = {{ is_superuser|yesno:"true,false" }};
@@ -684,5 +792,93 @@
 			});
 		});
 	</script>
+
+	{% comment %} <script>
+		function fitElementToParent(el, padding) {
+
+			var timeout = null;
+			function resize() {
+			  if (timeout) clearTimeout(timeout);
+			  anime.set(el, {scale: 1});
+			  var pad = padding || 0;
+			  var parentEl = el.parentNode;
+			  var elOffsetWidth = el.offsetWidth - pad;
+			  var parentOffsetWidth = parentEl.offsetWidth;
+			  var ratio = parentOffsetWidth / elOffsetWidth;
+			  timeout = setTimeout(anime.set(el, {scale: ratio}), 10);
+			}
+			resize();
+			window.addEventListener('resize', resize);
+		  }
+		  
+		  var layeredAnimation = (function() {
+		  
+			var transformEls = document.querySelectorAll('.transform-progress');
+			var layeredAnimationEl = document.querySelector('.layered-animations');
+			var shapeEls = layeredAnimationEl.querySelectorAll('.shape');
+			var triangleEl = layeredAnimationEl.querySelector('polygon');
+			var trianglePoints = triangleEl.getAttribute('points').split(' ');
+			var easings = ['easeInOutQuad', 'easeInOutCirc', 'easeInOutSine', 'spring'];
+		  
+			fitElementToParent(layeredAnimationEl);
+		  
+			function createKeyframes(value) {
+			  var keyframes = [];
+			  for (var i = 0; i < 30; i++) keyframes.push({ value: value });
+			  return keyframes;
+			}
+		  
+			function animateShape(el) {
+		  
+			  var circleEl = el.querySelector('circle');
+			  var rectEl = el.querySelector('rect');
+			  var polyEl = el.querySelector('polygon');
+		  
+			  var animation = anime.timeline({
+				targets: el,
+				duration: function() { return anime.random(600, 2200); },
+				easing: function() { return easings[anime.random(0, easings.length - 1)]; },
+				complete: function(anim) { animateShape(anim.animatables[0].target); },
+			  })
+			  .add({
+				translateX: createKeyframes(function(el) { 
+				  return el.classList.contains('large') ? anime.random(-300, 300) : anime.random(-520, 520);
+				}),
+				translateY: createKeyframes(function(el) { 
+				  return el.classList.contains('large') ? anime.random(-110, 110) : anime.random(-280, 280);
+				}),
+				rotate: createKeyframes(function() { return anime.random(-180, 180); }),
+			  }, 0);
+			  if (circleEl) {
+				animation.add({
+				  targets: circleEl,
+				  r: createKeyframes(function() { return anime.random(32, 72); }),
+				}, 0);
+			  }
+			  if (rectEl) {
+				animation.add({
+				  targets: rectEl,
+				  width: createKeyframes(function() { return anime.random(64, 120); }),
+				  height: createKeyframes(function() { return anime.random(64, 120); }),
+				}, 0);
+			  }
+			  if (polyEl) {
+				animation.add({
+				  targets: polyEl,
+				  points: createKeyframes(function() { 
+					var scale = anime.random(72, 180) / 100;
+					return trianglePoints.map(function(p) { return p * scale; }).join(' ');
+				  }),
+				}, 0);
+			  }
+		  
+			}
+		  
+			for (var i = 0; i < shapeEls.length; i++) {
+			  animateShape(shapeEls[i]);
+			}
+		  
+		})();
+	</script> {% endcomment %}
 
 {% endblock js %}

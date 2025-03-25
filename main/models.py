@@ -2,7 +2,11 @@ from django.db import models
 from django.utils.safestring import mark_safe
 
 from users.models import User
+import random
 
+class Settings(models.Model):
+    theme = models.CharField(max_length=5, default='light') 
+    
 
 class Curses(models.Model): 
     name = models.CharField(max_length=256, unique=True, verbose_name='Название')
@@ -11,9 +15,10 @@ class Curses(models.Model):
     description = models.TextField(blank=True, null=True, verbose_name='Описание', default='Описание программы еще не добавлено')
     sertificate = models.URLField(blank=True, null=True, verbose_name='Сертификат об окончании (URL)')
     structure = models.TextField(blank=True, null=True, verbose_name='Структура программы', default='Структура программы еще не добавлена')
-    hours = models.IntegerField(blank=True, null=True,verbose_name='Количество часов',default=0)
+    hours = models.IntegerField(blank=True, null=True, verbose_name='Количество часов',)
     image = models.ImageField(upload_to='curse_image', blank=True, null=True, verbose_name='Изображение')
     paid_or_free = models.CharField(max_length=2, blank=True, null=True, default='б', verbose_name='Бюджет/Внебюджет (б/вб)')
+    price = models.IntegerField(blank=True, null=True, verbose_name='Цена, в руб.', default=random.randint(100000,200000))
 
     class Meta:
         db_table = 'curse'
