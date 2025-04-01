@@ -2,8 +2,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from main.forms import RequestEducationForm, SettingsForm
-from main.models import Curses, Documents, News, NewsTag, Settings, Students
+
+from main.forms import RequestEducationForm
+from main.models import Curses, Documents, News, NewsTag, Students
 
 import csv
 import random as r
@@ -19,17 +20,12 @@ def toggle_theme(request):
 
     return redirect(request.META.get('HTTP_REFERER','/'))
 
- 
 def index(request):
     
     theme = request.GET.get('action')
     if theme == None:
         theme = 'light'
-
-
         
-        
-
     news = News.objects.all().order_by('-date')
 
     if len(News.objects.all()) > 3:
@@ -130,6 +126,7 @@ def news(request, news_slug):
     return render(request, 'main/single.html', context)
 
 def export_to_csv(request):
+    
     # Создаем HTTP-ответ с типом содержимого 'text/csv'
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="students.csv"'

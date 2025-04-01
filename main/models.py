@@ -7,7 +7,6 @@ import random
 class Settings(models.Model):
     theme = models.CharField(max_length=5, default='light') 
     
-
 class Curses(models.Model): 
     name = models.CharField(max_length=256, unique=True, verbose_name='Название')
     edu_form = models.CharField(max_length=15, verbose_name='Форма обучения')
@@ -68,9 +67,9 @@ class Students(models.Model):
         verbose_name_plural = 'Студенты'
 
 class Lecturers(models.Model):
-    first_name = models.CharField(max_length=150, unique=True, verbose_name='Имя')
-    last_name = models.CharField(max_length=150, unique=True, verbose_name='Фамилия')
-    surname = models.CharField(max_length=150, unique=True, verbose_name='Отчество')
+    first_name = models.CharField(max_length=150, verbose_name='Имя')
+    last_name = models.CharField(max_length=150, verbose_name='Фамилия')
+    surname = models.CharField(max_length=150, verbose_name='Отчество')
     education = models.CharField(max_length=150, unique=True, verbose_name='Образование', null=True, blank=True)
     description = models.TextField(verbose_name='Описание', null=True, blank=True)
     discipline = models.ForeignKey(to=Disciplines, on_delete=models.CASCADE, verbose_name='Дисциплина')

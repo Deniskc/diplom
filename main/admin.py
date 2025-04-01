@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from main.models import Curses, Disciplines, News, NewsTag, Settings, Students, Lecturers, Documents
+from main.models import Curses, Disciplines, News, NewsTag, Students, Lecturers, Documents
 
 
 class NewsTagTabularAdmin(admin.TabularInline):
@@ -22,8 +22,6 @@ class DisciplinesTabularAdmin(admin.TabularInline):
     model = Disciplines
     extra = 0
     classes = ['collapse']
-
-# admin.site.register(Settings)
 
 @admin.register(Curses)
 class CursesAdmin(admin.ModelAdmin):
@@ -80,7 +78,7 @@ class LecturersAdmin(admin.ModelAdmin):
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('title',)}
+    prepopulated_fields = {'slug': ('title','id',)}
     list_display = [
         'title',
         'date',
